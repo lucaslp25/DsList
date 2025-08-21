@@ -1,6 +1,7 @@
 package com.lpdev.dslist.services;
 
 import com.lpdev.dslist.dto.GameResponseDTO;
+import com.lpdev.dslist.dto.GameSummaryDTO;
 import com.lpdev.dslist.entities.Game;
 import com.lpdev.dslist.repositories.GameRepository;
 import lombok.RequiredArgsConstructor;
@@ -17,11 +18,18 @@ public class GameService {
     private final GameRepository gameRepository;
 
     @Transactional(readOnly = true)
-    public List<GameResponseDTO> findAll() {
+    public List<GameSummaryDTO> findAll() {
 
         List<Game> games = gameRepository.findAll();
 
-        return games.stream().map(GameResponseDTO::new).collect(Collectors.toList());
+        return games.stream().map(GameSummaryDTO::new).collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    public GameResponseDTO findById(Long id) {
+
+        Game game = gameRepository.findById(id).orElseThrow(()-> new RuntimeException("Not found game with id: " + id));
+        return new GameResponseDTO(game);
     }
 
 
