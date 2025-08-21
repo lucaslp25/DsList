@@ -3,6 +3,7 @@ package com.lpdev.dslist.services;
 import com.lpdev.dslist.dto.GameResponseDTO;
 import com.lpdev.dslist.dto.GameSummaryDTO;
 import com.lpdev.dslist.entities.Game;
+import com.lpdev.dslist.projections.GameMinProjection;
 import com.lpdev.dslist.repositories.GameRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -30,6 +31,13 @@ public class GameService {
 
         Game game = gameRepository.findById(id).orElseThrow(()-> new RuntimeException("Not found game with id: " + id));
         return new GameResponseDTO(game);
+    }
+
+    @Transactional(readOnly = true)
+    public List<GameSummaryDTO> findByList(Long id) {
+
+        List<GameMinProjection> games = gameRepository.searchByList(id);
+        return games.stream().map(GameSummaryDTO::new).collect(Collectors.toList());
     }
 
 
