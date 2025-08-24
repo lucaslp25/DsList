@@ -29,10 +29,10 @@ public class Game implements Serializable {
     private Double score;
     private String imgUrl;
 
-    @Lob
+    @Column(columnDefinition = "TEXT")
     private String shortDescription;
-    
-    @Lob
+
+    @Column(columnDefinition = "TEXT")
     private String longDescription;
 
 }

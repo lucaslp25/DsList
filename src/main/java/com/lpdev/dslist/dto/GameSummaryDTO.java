@@ -17,7 +17,7 @@ public record GameSummaryDTO(Long id, String title, Integer year, String imgUrl,
         this(
                 projection.getId(),
                 projection.getTitle(),
-                projection.getYear(),
+                projection.getGameYear(),
                 projection.getImgUrl(),
                 projection.getShortDescription()
         );
