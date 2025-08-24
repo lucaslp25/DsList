@@ -23,7 +23,7 @@ public interface GameRepository extends JpaRepository<Game, Long> {
 		CAST(tb_game.short_description AS VARCHAR) AS shortDescription, tb_belonging.position 
 		FROM tb_game
 		INNER JOIN tb_belonging ON tb_game.id = tb_belonging.game_id
-		WHERE tb_belonging.list_id = :listId
+		WHERE tb_belonging.list_id = :listId      
 		ORDER BY tb_belonging.position
 				
 			""")
